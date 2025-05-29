@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建筑工程学院毕业生智能管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1e6bb8;
+            --secondary-blue: #3498db;
+            --light-blue: #e6f2ff;
+            --dark-blue: #0d4a96;
+            --gray: #f5f7fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        /* 顶部导航 */
+        .top-nav {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: white;
+            display: flex;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            margin-left: 50px;
+        }
+        
+        .nav-tab {
+            padding: 20px 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+            position: relative;
+            color: white
+        }
+        
+        .nav-tab:hover, .nav-tab.active {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: white;
+        }
+        
+        .user-area {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        /* 主容器 */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 64px);
+        }
+        
+        /* 左侧菜单 */
+        .side-menu {
+            width: 250px;
+            background: white;
+            border-right: 1px solid #eaeaea;
+            overflow-y: auto;
+            transition: all 0.3s;
+        }
+        
+        .menu-header {
+            padding: 20px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-header i {
+            margin-right: 10px;
+        }
+        
+        .menu-item {
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-item i {
+            width: 24px;
+            margin-right: 12px;
+            color: #777;
+        }
+        
+        .menu-item:hover {
+            background: var(--light-blue);
+            border-left-color: var(--secondary-blue);
+        }
+        
+        .menu-item.active {
+            background: var(--light-blue);
+            border-left-color: var(--primary-blue);
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+        
+        .submenu {
+            padding-left: 40px;
+            background: #fafafa;
+            display: none;
+        }
+        
+        .submenu.show {
+            display: block;
+        }
+        
+        .sub-item {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sub-item i {
+            font-size: 0.8rem;
+        }
+        
+        .sub-item:hover {
+            color: var(--primary-blue);
+        }
+        
+        /* 内容区域 */
+        .content {
+            flex: 1;
+            padding: 25px;
+            background: var(--gray);
+            overflow-y: auto;
+        }
+        
+        .content-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .content-header h1 {
+            color: var(--dark-blue);
+            font-size: 1.8rem;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 15px 20px;
+            font-weight: 500;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list i {
+            color: var(--primary-blue);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .paid-badge {
+            background: #ff9800;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 992px) {
+            .side-menu {
+                width: 70px;
+            }
+            
+            .menu-text, .menu-header span {
+                display: none;
+            }
+            
+            .menu-header {
+                justify-content: center;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .nav-tabs {
+                margin-left: 20px;
+            }
+            
+            .nav-tab {
+                padding: 20px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .side-menu {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .menu-header {
+                justify-content: flex-start;
+            }
+            
+            .menu-text, .menu-header span {
+                display: inline;
+            }
+            
+            .menu-items {
+                display: flex;
+                overflow-x: auto;
+            }
+            
+            .menu-item {
+                min-width: 120px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                justify-content: center;
+            }
+            
+            .menu-item.active {
+                border-left: none;
+                border-bottom: 3px solid var(--primary-blue);
+            }
+            
+            .submenu {
+                position: absolute;
+                background: white;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 10;
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="top-nav">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>建筑工程学院毕业生智能管理系统</span>
+        </div>
+        <div class="nav-tabs">
+            <a href="index.html" class="nav-tab">登录</a>
+             <a href="学生端.html" class="nav-tab">学生端</a>
+             <a href="教师端.html" class="nav-tab">教师端</a>
+             <a href="企业端.html" class="nav-tab">企业端</a>
+        </div>
+        <div class="user-area">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>张三同学</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 学生端菜单 -->
+        <div class="side-menu" id="student-menu">
+            <div class="menu-header">
+                <i class="fas fa-user-graduate"></i>
+                <span>学生功能</span>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item active" data-content="fresh">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-text">应届反馈</span>
+                </div>
+                <div class="submenu show">
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>考研信息</span>
+                    </div>
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>就业信息</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-content="past">
+                    <i class="fas fa-archive"></i>
+                    <span class="menu-text">往届档案</span>
+                </div>
+                
+                <div class="menu-item" data-content="competition">
+                    <i class="fas fa-trophy"></i>
+                    <span class="menu-text">大赛专区</span>
+                </div>
+                <div class="submenu">
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>赛事检索</span>
+                    </div>
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>资料下载</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-content="postgraduate">
+                    <i class="fas fa-book-open"></i>
+                    <span class="menu-text">考研专区</span>
+                </div>
+                
+                <div class="menu-item" data-content="employment">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="menu-text">就业服务</span>
+                </div>
+                
+                <div class="menu-item" data-content="interaction">
+                    <i class="fas fa-comments"></i>
+                    <span class="menu-text">互动交流</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 内容区域 -->
+        <div class="content">
+            <div class="content-header">
+                <h1><i class="fas fa-file-alt"></i> 应届反馈</h1>
+                <p>查看考研与就业相关信息资源</p>
+            </div>
+            
+            <div class="card-container">
+                <!-- 考研信息卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-university"></i> 考研信息库
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-search"></i>
+                                <span>院校库检索</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-chart-line"></i>
+                                <span>历年分数线分析</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-book"></i>
+                                <span>专业课资料</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>复试流程指南</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-download"></i>
+                                <span>真题资料库</span>
+                                <span class="paid-badge">付费</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 就业信息卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-building"></i> 就业信息库
+                    </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-search"></i>
+                                <span>企业信息检索</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>薪资水平参考</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-file-contract"></i>
+                                <span>劳务合同模板</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-tie"></i>
+                                <span>岗位需求分析</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>企业位置分布</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 求职流程卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-tasks"></i> 求职全流程
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            <div class="timeline-step active">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-file"></i>
+                                </div>
+                                <div class="timeline-label">简历制作</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                                <div class="timeline-label">简历提交</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="timeline-label">一面</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="timeline-label">二面</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="timeline-label">终面</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="timeline-label">结果通知</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 菜单交互功能
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active状态
+                document.querySelectorAll('.menu-item').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                // 添加当前active状态
+                this.classList.add('active');
+                
+                // 切换子菜单显示
+                const submenu = this.nextElementSibling;
+                if (submenu && submenu.classList.contains('submenu')) {
+                    document.querySelectorAll('.submenu').forEach(el => {
+                        el.classList.remove('show');
+                    });
+                    submenu.classList.add('show');
+                }
+                
+                // 更新内容区域标题
+                const menuText = this.querySelector('.menu-text').textContent;
+                document.querySelector('.content-header h1').innerHTML = 
+                    `<i class="${this.querySelector('i').className}"></i> ${menuText}`;
+            });
+        });
+        // 付费标签提示
+        document.querySelectorAll('.paid-badge').forEach(badge => {
+            badge.addEventListener('click', function(e) {
+                e.stopPropagation();
+                alert('此内容为付费资源，需要购买后才能下载');
+            });
+        });
+    </script>
+</body>
+</html>
