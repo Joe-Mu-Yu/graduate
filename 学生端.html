@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建筑工程学院毕业生智能管理系统</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -17,14 +18,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Sans SC', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background: linear-gradient(to bottom, #f0f5ff, #e6efff);
+            background-color: #f8f9fa;
             color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
         }
         
         /* 顶部导航 */
@@ -33,42 +32,35 @@
             color: white;
             display: flex;
             padding: 0 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 100;
-            height: var(--header-height);
         }
         
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            padding: 0;
+            padding: 15px 0;
             display: flex;
             align-items: center;
         }
         
         .logo i {
-            margin-right: 12px;
-            color: var(--honor-gold);
+            margin-right: 10px;
         }
-        
         
         .nav-tabs {
             display: flex;
-            margin-left: 40px;
+            margin-left: 50px;
         }
         
         .nav-tab {
-            padding: 0 20px;
+            padding: 20px 25px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background 0.3s;
             font-weight: 500;
             position: relative;
-            color: white;
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
         }
         
         .nav-tab:hover, .nav-tab.active {
@@ -85,166 +77,65 @@
             background: white;
         }
         
-        .top-right-menu {
-            display: flex;
-            margin-left: auto;
-        }
-        
         .user-area {
-            padding: 0 15px;
+            margin-left: auto;
             display: flex;
             align-items: center;
-        }
-        
-        .user-info {
-            padding: 8px 16px;
-            border-radius: 30px;
-            transition: all 0.3s;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            height: 36px;
-        }
-        
-        .user-info:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .user-info i {
-            margin-right: 8px;
-            font-size: 1.2rem;
-        }
-
-        /* 搜索框容器 */
-        .search-position-container {
-            position: absolute;
-            top: calc(var(--header-height) + 10px);
-            right: 20px;
-            z-index: 200;
-            display: flex;
-            justify-content: flex-end;
-            transition: all 0.3s ease;
-        }
-        
-        .search-container {
-            background: white;
-            border-radius: 15px;
-            padding: 5px;
-            box-shadow: 0 8px 25px rgba(30, 107, 184, 0.4);
-            transform: translateY(0);
-            opacity: 1;
-            transition: transform 0.3s, opacity 0.3s;
-            width: 380px;
-            border: 2px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(5px);
-            background: rgba(255,255,255,0.95);
-        }
-        
-        .search-box {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        
-        .search-input {
-            flex: 1;
-            border: none;
-            padding: 15px 50px 15px 20px;
-            font-size: 1rem;
-            background: transparent;
-            outline: none;
-            border-radius: 12px;
-            transition: all 0.3s;
-            color: var(--dark-blue);
-            height: 30px;
-        }
-        
-        .search-input::placeholder {
-            color: #8aa1c4;
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: linear-gradient(45deg, var(--primary-blue), var(--dark-blue));
-            color: white;
-        }
-        
-        .search-icon:hover {
-            transform: scale(1.1);
+            padding: 0 20px;
         }
         
         /* 主容器 */
         .container {
             display: flex;
-            min-height: calc(100vh - var(--header-height));
-            padding: 20px;
-            max-width: 1600px;
-            margin: 0 auto;
-            gap: 20px;
+            min-height: calc(100vh - 64px);
         }
         
-        /* 左侧菜单 - 调整为更窄 */
+        /* 左侧菜单 */
         .side-menu {
-            width: 220px;
+            width: 250px;
             background: white;
-            border-radius: 16px;
-            box-shadow: var(--card-shadow);
-            height: fit-content;
-            border: 1px solid rgba(0,0,0,0.03);
+            border-right: 1px solid #eaeaea;
+            overflow-y: auto;
+            transition: all 0.3s;
         }
         
         .menu-header {
-            padding: 20px 20px 16px;
-            font-weight: 700;
-            color: var(--dark-blue);
-            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
-            font-size: 1.1rem;
         }
         
         .menu-header i {
             margin-right: 10px;
-            font-size: 1.2rem;
-            color: var(--accent-purple);
         }
         
         .menu-item {
-            padding: 14px 20px;
+            padding: 15px 20px;
             border-left: 4px solid transparent;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            font-size: 1rem;
         }
         
         .menu-item i {
             width: 24px;
             margin-right: 12px;
-            color: #666;
-            font-size: 1.1rem;
+            color: #777;
         }
         
         .menu-item:hover {
             background: var(--light-blue);
             border-left-color: var(--secondary-blue);
-            color: var(--dark-blue);
         }
         
         .menu-item.active {
-            background: rgba(30, 107, 184, 0.08);
+            background: var(--light-blue);
             border-left-color: var(--primary-blue);
-            color: var(--dark-blue);
+            color: var(--primary-blue);
             font-weight: 500;
         }
         
@@ -260,14 +151,14 @@
         
         .sub-item {
             padding: 12px 20px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #555;
             display: flex;
             align-items: center;
         }
         
         .sub-item i {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         
         .sub-item:hover {
@@ -277,555 +168,156 @@
         /* 内容区域 */
         .content {
             flex: 1;
-            background: transparent;
-            border-radius: 16px;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-        
-        /* 主内容区 - 知乎风格问答 */
-        .main-content {
-            flex: 1;
-            padding: 0;
-            background: transparent;
-            display: flex;
-            flex-direction: column;
+            padding: 25px;
+            background: var(--gray);
+            overflow-y: auto;
         }
         
         .content-header {
-            background: white;
-            border-radius: 16px;
-            padding: 24px 30px;
-            margin-bottom: 20px;
-            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
         }
         
         .content-header h1 {
             color: var(--dark-blue);
             font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 8px;
         }
         
-        .content-header h1 i {
-            color: var(--secondary-blue);
-            background: rgba(52, 152, 219, 0.1);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
         
-        .content-header p {
-            color: #666;
-            font-size: 1.05rem;
-            margin-left: 66px;
-            margin-top: -8px;
-        }
-        
-        .content-body {
+        .card {
             background: white;
-            border-radius: 16px;
-            box-shadow: var(--card-shadow);
-            padding: 24px 30px;
-            flex: 1;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s;
         }
         
-        /* 问题卡片 */
-        .question-card {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-left: 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-        }
-        
-        .question-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid var(--primary-blue);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .user-info-mini {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .avatar-mini {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .user-details {
-            line-height: 1.4;
-        }
-        
-        .user-name {
-            font-weight: 600;
-            color: #333;
-            font-size: 1.05rem;
-        }
-        
-        .user-title {
-            font-size: 0.85rem;
-            color: var(--primary-blue);
+            padding: 15px 20px;
             font-weight: 500;
         }
         
-        .question-meta {
-            font-size: 0.85rem;
-            color: #888;
-        }
-        
-        .question-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--dark-blue);
-            line-height: 1.4;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed var(--border-color);
-        }
-        
-        .question-content {
-            color: #444;
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-        
-        .question-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .tag {
-            background: #e8f4ff;
-            color: var(--primary-blue);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        
-        .tag:hover {
-            background: var(--primary-blue);
-            color: white;
-        }
-        
-        .question-footer {
-            display: flex;
-            justify-content: space-between;
-            color: #8590a6;
-            font-size: 0.95rem;
-            align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .actions {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .action-btn {
-            display: flex;
-            align-items: center;
-            padding: 8px 20px;
-            border-radius: 30px;
-            transition: all 0.3s;
-            background: #f8f9ff;
-            color: #6b7c93;
-            font-weight: 500;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .action-btn i {
-            margin-right: 6px;
-        }
-        
-        .action-btn:hover {
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--dark-blue);
-        }
-        
-        .action-btn.active {
-            background: var(--primary-blue);
-            color: white;
-        }
-        
-        .action-btn.bookmark.active {
-            background: var(--accent-orange);
-            color: white;
-        }
-        
-        /* 右侧面板 */
-        .sidebar {
-            width: 380px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-        
-        /* 提问表单 */
-        .question-form {
-            background: linear-gradient(135deg, #ffffff, #f9faff);
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(30, 107, 184, 0.1);
-        }
-        
-        .form-header {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark-blue);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        
-        .form-header i {
-            color: var(--secondary-blue);
-            background: rgba(52, 152, 219, 0.12);
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .form-group {
-            margin-bottom: 22px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-blue);
-            font-size: 0.97rem;
-            padding-left: 5px;
-        }
-        
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.9);
-            font-family: 'Noto Sans SC', sans-serif;
-        }
-        
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(30, 107, 184, 0.15);
-            background: white;
-        }
-        
-        .form-group textarea {
-            min-height: 140px;
-            resize: vertical;
-            line-height: 1.6;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 12px;
-            background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 6px 18px rgba(30, 107, 184, 0.35);
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 22px rgba(30, 107, 184, 0.45);
-        }
-        
-        /* 光荣榜样式 */
-        .honor-board {
-            background: white;
-            border-radius: 16px;
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-        
-        .honor-header {
-            background: linear-gradient(135deg, var(--accent-purple), #9b59b6);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .honor-header:before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-            top: -50%;
-            left: -50%;
-            transform: rotate(-20deg);
-        }
-        
-        .honor-header h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .honor-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 2;
-            font-weight: 300;
-        }
-        
-        .honor-content {
-            padding: 15px 0;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .honor-item {
-            display: flex;
-            align-items: center;
-            padding: 20px 30px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .honor-item:hover {
-            background: #fcfaff;
-            transform: translateX(5px);
-        }
-        
-        .honor-rank {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 20px;
-            color: white;
-            margin-right: 22px;
-            flex-shrink: 0;
-        }
-        
-        .rank-1 {
-            background: linear-gradient(135deg, #ffd700, #ff9800);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
-        }
-        
-        .rank-2 {
-            background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
-            box-shadow: 0 5px 15px rgba(192, 192, 192, 0.4);
-        }
-        
-        .rank-3 {
-            background: linear-gradient(135deg, #cd7f32, #b5651d);
-            box-shadow: 0 5px 15px rgba(205, 127, 50, 0.4);
-        }
-        
-        .rank-4, .rank-5 {
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-        }
-        
-        .honor-info {
-            flex: 1;
-        }
-        
-        .honor-name {
-            font-weight: 600;
-            font-size: 18px;
-            color: #2c3e50;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .honor-name span {
-            margin-right: 8px;
-        }
-        
-        .honor-school {
-            font-size: 15px;
-            color: #7f8c8d;
-            display: flex;
-            align-items: center;
-        }
-        
-        .honor-school i {
-            margin-right: 10px;
-            color: var(--accent-purple);
-        }
-        
-        .honor-score {
-            font-weight: 700;
-            font-size: 22px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-left: 10px;
-            text-align: right;
-            min-width: 80px;
-        }
-        
-        .honor-count {
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-            color: white;
+        .card-body {
             padding: 20px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
             display: flex;
-            justify-content: center;
-            gap: 14px;
             align-items: center;
         }
         
-        .honor-count span {
-            background: white;
-            color: var(--dark-blue);
-            border-radius: 30px;
-            padding: 7px 18px;
-            font-weight: 700;
+        .feature-list li:last-child {
+            border-bottom: none;
         }
         
-        /* 响应式设计 */
-        @media (max-width: 1200px) {
-            .container {
-                flex-direction: column;
-            }
-            
+        .feature-list i {
+            color: var(--primary-blue);
+            margin-right: 10px;
+            width: 20px;
+        }
+        
+        .paid-badge {
+            background: #ff9800;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 992px) {
             .side-menu {
-                width: 100%;
+                width: 70px;
+            }
+            
+            .menu-text, .menu-header span {
+                display: none;
+            }
+            
+            .menu-header {
+                justify-content: center;
+            }
+            
+            .menu-item i {
                 margin-right: 0;
-                margin-bottom: 20px;
+                font-size: 1.2rem;
             }
             
-            .content {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            
-            .honor-board {
-                flex: 1;
-                min-width: 300px;
-            }
-            
-            .question-form {
-                flex: 1;
-                min-width: 300px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .top-nav {
-                flex-wrap: wrap;
-                padding: 0 15px;
-                height: auto;
+            .nav-tabs {
+                margin-left: 20px;
             }
             
             .nav-tab {
                 padding: 20px 15px;
                 font-size: 0.9rem;
             }
-
-            .nav-tabs {
-                margin-left: 20px;
-            }
-            
-            .user-area {
-                padding: 0 10px;
-            }
-            
-            .logo {
-                font-size: 1.3rem;
-            }
-            
-            .nav-tab {
-                padding: 12px 15px;
-                font-size: 0.95rem;
-            }
-            
-            .search-position-container {
-                top: 85px;
-                right: 10px;
-            }
-            
-            .search-container {
-                width: 320px;
-            }
-            
+        }
+        
+        @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                flex-direction: column;
             }
             
-            .form-header, .content-header h1 {
-                font-size: 1.4rem;
+            .side-menu {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #eee;
             }
             
-            .question-title {
-                font-size: 1.25rem;
+            .menu-header {
+                justify-content: flex-start;
+            }
+            
+            .menu-text, .menu-header span {
+                display: inline;
+            }
+            
+            .menu-items {
+                display: flex;
+                overflow-x: auto;
+            }
+            
+            .menu-item {
+                min-width: 120px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                justify-content: center;
+            }
+            
+            .menu-item.active {
+                border-left: none;
+                border-bottom: 3px solid var(--primary-blue);
+            }
+            
+            .submenu {
+                position: absolute;
+                background: white;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 10;
+                width: 200px;
             }
         }
     </style>
@@ -838,315 +330,194 @@
             <span>建筑工程学院毕业生智能管理系统</span>
         </div>
         <div class="nav-tabs">
-            <a href="index.html" class="nav-tab">登录</a>
-             <a href="学生端.html" class="nav-tab active">学生端</a>
-             <a href="教师端.html" class="nav-tab">教师端</a>
-             <a href="企业端.html" class="nav-tab">企业端</a>
+            <div class="nav-tab active" data-target="student">学生端</div>
+            <div class="nav-tab" data-target="teacher">教师端</div>
+            <div class="nav-tab" data-target="enterprise">企业端</div>
         </div>
-        
-        <div class="top-right-menu">
-            <div class="user-area">
-                <div class="user-info">
-                    <i class="fas fa-user-circle"></i>
-                    <span>张三同学</span>
-                </div>
-            </div>
-            <div class="user-area">
-                <div class="user-info">
-                    <i class="fas fa-comment-dots"></i>
-                    <span>反馈</span>
-                </div>
-            </div>
-        </div>
-    </div> 
-    <!-- 右上角定位容器 -->
-    <div class="search-position-container">
-        <!-- 搜索框容器 -->
-        <div class="search-container">
-            <div class="search-box">
-                <input type="text" 
-                       class="search-input" 
-                       placeholder="搜索考研资料、课程、导师..." 
-                       autocomplete="off">
-                <div class="search-icon">
-                    <i class="fas fa-search"></i>
-                </div>
-            </div>
-            <!-- 搜索结果区域 -->
-            <div class="search-results">
-                <!-- 搜索结果将在这里动态生成 -->
+        <div class="user-area">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>张三同学</span>
             </div>
         </div>
     </div>
 
     <!-- 主容器 -->
     <div class="container">
-        <!-- 学生端菜单 - 宽度缩小 -->
-        <div class="side-menu">
+        <!-- 学生端菜单 -->
+        <div class="side-menu" id="student-menu">
             <div class="menu-header">
                 <i class="fas fa-user-graduate"></i>
                 <span>学生功能</span>
             </div>
-            <div class="menu-item active">
-                <i class="fas fa-book-open"></i>
-                <span>考研专区</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-briefcase"></i>
-                <span>就业服务</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-trophy"></i>
-                <span>大赛专区</span>
+            <div class="menu-items">
+                <div class="menu-item active" data-content="fresh">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="menu-text">应届反馈</span>
+                </div>
+                <div class="submenu show">
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>考研信息</span>
+                    </div>
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>就业信息</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-content="past">
+                    <i class="fas fa-archive"></i>
+                    <span class="menu-text">往届档案</span>
+                </div>
+                
+                <div class="menu-item" data-content="competition">
+                    <i class="fas fa-trophy"></i>
+                    <span class="menu-text">大赛专区</span>
+                </div>
+                <div class="submenu">
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>赛事检索</span>
+                    </div>
+                    <div class="sub-item">
+                        <i class="fas fa-chevron-right"></i>
+                        <span>资料下载</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-content="postgraduate">
+                    <i class="fas fa-book-open"></i>
+                    <span class="menu-text">考研专区</span>
+                </div>
+                
+                <div class="menu-item" data-content="employment">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="menu-text">就业服务</span>
+                </div>
+                
+                <div class="menu-item" data-content="interaction">
+                    <i class="fas fa-comments"></i>
+                    <span class="menu-text">互动交流</span>
+                </div>
             </div>
         </div>
 
         <!-- 内容区域 -->
         <div class="content">
-            <!-- 主内容区 - 知乎风格问答 -->
-            <div class="main-content">
-                <div class="content-header">
-                    <h1><i class="fas fa-book-open"></i> 考研问答专区</h1>
-                    <p>与同学交流备考经验，获取专业指导</p>
-                </div>
-                
-                <div class="content-body">
-                    <!-- 问题列表 -->
-                    <div class="question-card">
-                        <div class="question-header">
-                            <div class="user-info-mini">
-                                <div class="avatar-mini">李</div>
-                                <div class="user-details">
-                                    <div class="user-name">李明阳</div>
-                                    <div class="user-title">建筑工程专业 · 已录取清华</div>
-                                </div>
-                            </div>
-                            <div class="question-meta">5小时前</div>
-                        </div>
-                        
-                        <div class="question-title">考研复习时间如何高效安排？</div>
-                        
-                        <div class="question-content">
-                            <p>作为跨考生，现在正在备考计算机专业硕士,每天有8小时左右的学习时间，应该如何分配数学、专业课、英语和政治的复习时间比较合理？有没有高效的时间管理技巧？</p>
-                        </div>
-                        
-                        <div class="question-tags">
-                            <div class="tag">考研</div>
-                            <div class="tag">时间管理</div>
-                            <div class="tag">备考经验</div>
-                            <div class="tag">跨考</div>
-                        </div>
-                        
-                        <div class="question-footer">
-                            <div class="question-meta">156人关注 · 23条回答</div>
-                            <div class="actions">
-                                <div class="action-btn">
-                                    <i class="fas fa-thumbs-up"></i> 68
-                                </div>
-                                <div class="action-btn">
-                                    <i class="fas fa-comment"></i> 回复
-                                </div>
-                                <div class="action-btn">
-                                    <i class="fas fa-share"></i> 分享
-                                </div>
-                                <div class="action-btn bookmark">
-                                    <i class="fas fa-bookmark"></i> 收藏
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="question-card">
-                        <div class="question-header">
-                            <div class="user-info-mini">
-                                <div class="avatar-mini">王</div>
-                                <div class="user-details">
-                                    <div class="user-name">王晓丹</div>
-                                    <div class="user-title">建筑历史专业 · 研二在读</div>
-                                </div>
-                            </div>
-                            <div class="question-meta">昨天 15:22</div>
-                        </div>
-                        
-                        <div class="question-title">考研英语阅读理解错误率居高不下怎么办？</div>
-                        
-                        <div class="question-content">
-                            <p>练习考研英语阅读已经两个月了,但每次五篇阅读仍要错10个左右，非常焦虑。尝试过精读文章，效果不明显。有没有更有效的训练方法？时间控制在1小时以内做完五篇阅读是否可行？</p>
-                        </div>
-                        
-                        <div class="question-tags">
-                            <div class="tag">英语</div>
-                            <div class="tag">阅读理解</div>
-                            <div class="tag">学习技巧</div>
-                        </div>
-                        
-                        <div class="question-footer">
-                            <div class="question-meta">89人关注 · 12条回答</div>
-                            <div class="actions">
-                                <div class="action-btn active">
-                                    <i class="fas fa-thumbs-up"></i> 42
-                                </div>
-                                <div class="action-btn">
-                                    <i class="fas fa-comment"></i> 回复
-                                </div>
-                                <div class="action-btn">
-                                    <i class="fas fa-share"></i> 分享
-                                </div>
-                                <div class="action-btn bookmark active">
-                                    <i class="fas fa-bookmark"></i> 已收藏
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    <div class="question-card">
-                        <div class="question-header">
-                            <div class="user-info-mini">
-                                <div class="avatar-mini">刘</div>
-                                <div class="user-details">
-                                    <div class="user-name">刘梦</div>
-                                    <div class="user-title">结构工程研究生 · 心理辅导志愿者</div>
-                                </div>
-                            </div>
-                            <div class="question-meta">2024-06-10</div>
-                        </div>
-                        
-                        <div class="question-title">考研后期心理压力太大，如何调整心态？</div>
-                        
-                        <div class="question-content">
-                            <p>临近考试只剩三个月，开始失眠焦虑，经常怀疑自己复习不到位，有时甚至出现心悸的情况。大家在这个阶段都是如何克服焦虑情绪，保持高效学习的？有没有有效的心理调节方法？</p>
-                        </div>
-                        
-                        <div class="question-tags">
-                            <div class="tag">心理调节</div>
-                            <div class="tag">压力管理</div>
-                            <div class="tag">考研心态</div>
-                        </div>
-                        
-                        <div class="question-footer">
-                            <div class="question-meta">342人关注 · 56条回答</div>
-                            <div class="actions">
-                                <div class="action-btn">
-                                    <i class="fas fa-thumbs-up"></i> 89
-                                </div>
-                                <div class="action-btn">
-                                    <i class="fas fa-comment"></i> 回复
-                                </div>
-                                <div class="action-btn">
-                                    <i class="fas fa-share"></i> 分享
-                                </div>
-                                <div class="action-btn bookmark">
-                                    <i class="fas fa-bookmark"></i> 收藏
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="content-header">
+                <h1><i class="fas fa-file-alt"></i> 应届反馈</h1>
+                <p>查看考研与就业相关信息资源</p>
             </div>
             
-            <!-- 右侧面板 - 提问表单 + 光荣榜 -->
-            <div class="sidebar">
-                <!-- 提问表单 -->
-                <div class="question-form">
-                    <div class="form-header">
-                        <i class="fas fa-edit"></i> 我要提问
+            <div class="card-container">
+                <!-- 考研信息卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-university"></i> 考研信息库
                     </div>
-                    <div class="form-group">
-                        <label for="question-title">问题标题</label>
-                        <input type="text" id="question-title" placeholder="写下你的问题...">
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-search"></i>
+                                <span>院校库检索</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-chart-line"></i>
+                                <span>历年分数线分析</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-book"></i>
+                                <span>专业课资料</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>复试流程指南</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-download"></i>
+                                <span>真题资料库</span>
+                                <span class="paid-badge">付费</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="form-group">
-                        <label for="question-details">详细描述</label>
-                        <textarea id="question-details" placeholder="更详细地描述你的问题..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="question-tags">问题标签</label>
-                        <input type="text" id="question-tags" placeholder="添加标签（用逗号分隔）">
-                    </div>
-                    <button class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> 发布问题
-                    </button>
                 </div>
                 
-                <!-- 光荣榜 -->
-                <div class="honor-board">
-                    <div class="honor-header">
-                        <h2>2024考研光荣榜</h2>
-                        <p>厚积薄发，梦想成真</p>
+                <!-- 就业信息卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-building"></i> 就业信息库
                     </div>
-                    
-                    <div class="honor-content">
-                        <div class="honor-item">
-                            <div class="honor-rank rank-1">1</div>
-                            <div class="honor-info">
-                                <div class="honor-name">
-                                    <span>张明阳</span>
-                                </div>
-                                <div class="honor-school">
-                                    <i class="fas fa-graduation-cap"></i>清华大学 · 计算机科学与技术
-                                </div>
-                            </div>
-                            <div class="honor-score">428分</div>
-                        </div>
-                        
-                        <div class="honor-item">
-                            <div class="honor-rank rank-2">2</div>
-                            <div class="honor-info">
-                                <div class="honor-name">
-                                    <span>李思涵</span>
-                                </div>
-                                <div class="honor-school">
-                                    <i class="fas fa-graduation-cap"></i>北京大学 · 金融学
-                                </div>
-                            </div>
-                            <div class="honor-score">423分</div>
-                        </div>
-                        
-                        <div class="honor-item">
-                            <div class="honor-rank rank-3">3</div>
-                            <div class="honor-info">
-                                <div class="honor-name">
-                                    <span>陈晓婷</span>
-                                </div>
-                                <div class="honor-school">
-                                    <i class="fas fa-graduation-cap"></i>复旦大学 · 临床医学
-                                </div>
-                            </div>
-                            <div class="honor-score">418分</div>
-                        </div>
-                        
-                        <div class="honor-item">
-                            <div class="honor-rank rank-4">4</div>
-                            <div class="honor-info">
-                                <div class="honor-name">
-                                    <span>王浩宇</span>
-                                </div>
-                                <div class="honor-school">
-                                    <i class="fas fa-graduation-cap"></i>上海交通大学 · 电子信息工程
-                                </div>
-                            </div>
-                            <div class="honor-score">412分</div>
-                        </div>
-                        
-                        <div class="honor-item">
-                            <div class="honor-rank rank-5">5</div>
-                            <div class="honor-info">
-                                <div class="honor-name">
-                                    <span>赵雨欣</span>
-                                </div>
-                                <div class="honor-school">
-                                    <i class="fas fa-graduation-cap"></i>浙江大学 · 软件工程
-                                </div>
-                            </div>
-                            <div class="honor-score">410分</div>
-                        </div>
+                    <div class="card-body">
+                        <ul class="feature-list">
+                            <li>
+                                <i class="fas fa-search"></i>
+                                <span>企业信息检索</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>薪资水平参考</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-file-contract"></i>
+                                <span>劳务合同模板</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-user-tie"></i>
+                                <span>岗位需求分析</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>企业位置分布</span>
+                            </li>
+                        </ul>
                     </div>
-                    
-                    <div class="honor-count">
-                        <i class="fas fa-user-graduate"></i> 
-                        全校共有<span>237人</span>考入985/211高校
+                </div>
+                
+                <!-- 求职流程卡片 -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-tasks"></i> 求职全流程
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            <div class="timeline-step active">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-file"></i>
+                                </div>
+                                <div class="timeline-label">简历制作</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                                <div class="timeline-label">简历提交</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="timeline-label">一面</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="timeline-label">二面</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="timeline-label">终面</div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="timeline-label">结果通知</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1154,105 +525,51 @@
     </div>
 
     <script>
-        // 页面加载完成后
-        document.addEventListener('DOMContentLoaded', function() {
-            // 左侧菜单项点击
-            const menuItems = document.querySelectorAll('.menu-item');
-            menuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    menuItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
+        // 菜单交互功能
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active状态
+                document.querySelectorAll('.menu-item').forEach(el => {
+                    el.classList.remove('active');
                 });
-            });
-            
-            // 点赞功能
-            document.querySelectorAll('.action-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // 防止事件冒泡
-                    if (this.classList.contains('bookmark') || this.querySelector('.fa-comment') || this.querySelector('.fa-share')) {
-                        return;
-                    }
-                    
-                    if(this.classList.contains('bookmark')) {
-                        this.classList.toggle('active');
-                        if(this.classList.contains('active')) {
-                            this.innerHTML = '<i class="fas fa-bookmark"></i> 已收藏';
-                        } else {
-                            this.innerHTML = '<i class="fas fa-bookmark"></i> 收藏';
-                        }
-                    } else if(!this.classList.contains('active')) {
-                        this.classList.add('active');
-                        const icon = this.querySelector('i');
-                        const text = this.innerText;
-                        const num = parseInt(text) || 0;
-                        this.innerHTML = `<i class="${icon.className}"></i> ${num + 1}`;
-                    }
-                });
-            });
-            
-            // 收藏功能
-            document.querySelectorAll('.action-btn.bookmark').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    if(this.classList.contains('active')) {
-                        this.innerHTML = '<i class="fas fa-bookmark"></i> 已收藏';
-                    } else {
-                        this.innerHTML = '<i class="fas fa-bookmark"></i> 收藏';
-                    }
-                });
-            });
-            
-            // 提问表单提交
-            const submitBtn = document.querySelector('.submit-btn');
-            submitBtn.addEventListener('click', function() {
-                const title = document.getElementById('question-title');
-                const details = document.getElementById('question-details');
                 
-                let isValid = true;
+                // 添加当前active状态
+                this.classList.add('active');
                 
-                if(title.value.trim() === '') {
-                    title.style.borderColor = '#ff6b6b';
-                    isValid = false;
-                } else {
-                    title.style.borderColor = '';
+                // 切换子菜单显示
+                const submenu = this.nextElementSibling;
+                if (submenu && submenu.classList.contains('submenu')) {
+                    document.querySelectorAll('.submenu').forEach(el => {
+                        el.classList.remove('show');
+                    });
+                    submenu.classList.add('show');
                 }
                 
-                if(details.value.trim() === '') {
-                    details.style.borderColor = '#ff6b6b';
-                    isValid = false;
-                } else {
-                    details.style.borderColor = '';
-                }
-                
-                if(isValid) {
-                    // 动画效果
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
-                    
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-check"></i> 发布成功';
-                        this.style.background = 'linear-gradient(to right, #2ecc71, #27ae60)';
-                        
-                        // 3秒后重置表单
-                        setTimeout(() => {
-                            title.value = '';
-                            details.value = '';
-                            document.getElementById('question-tags').value = '';
-                            this.innerHTML = '<i class="fas fa-paper-plane"></i> 发布问题';
-                            this.style.background = 'linear-gradient(to right, var(--primary-blue), var(--dark-blue))';
-                        }, 2000);
-                    }, 1000);
-                }
+                // 更新内容区域标题
+                const menuText = this.querySelector('.menu-text').textContent;
+                document.querySelector('.content-header h1').innerHTML = 
+                    `<i class="${this.querySelector('i').className}"></i> ${menuText}`;
             });
-            
-            // 光荣榜项悬停效果
-            document.querySelectorAll('.honor-item').forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(5px)';
+        });
+        
+        // 导航标签切换
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.nav-tab').forEach(t => {
+                    t.classList.remove('active');
                 });
+                this.classList.add('active');
                 
-                item.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                });
+                const target = this.getAttribute('data-target');
+                alert(`切换到${target}端，实际项目中这里会加载${target}端的内容`);
+            });
+        });
+        
+        // 付费标签提示
+        document.querySelectorAll('.paid-badge').forEach(badge => {
+            badge.addEventListener('click', function(e) {
+                e.stopPropagation();
+                alert('此内容为付费资源，需要购买后才能下载');
             });
         });
     </script>
