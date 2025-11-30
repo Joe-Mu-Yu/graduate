@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天室 - 建筑工程学院毕业生智能管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1e6bb8;
+            --secondary-blue: #3498db;
+            --light-blue: #e6f2ff;
+            --dark-blue: #0d4a96;
+            --gray: #f5f7fa;
+            --border-color: #e0e6ed;
+            --card-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            --header-height: 70px;
+            --success-green: #2ecc71;
+            --error-red: #e74c3c;
+            --message-bg: #f0f4ff;
+            --user-message-bg: #d0e5ff;
+            
+            /* 字体变量 - 统一所有页面 */
+            --font-family: 'Noto Sans SC', 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            --font-size-base: 16px;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-md: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            --font-size-5xl: 3rem;
+            
+            /* 行高变量 */
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.6;
+            --line-height-loose: 1.8;
+            
+            /* 字间距变量 */
+            --letter-spacing-tight: -0.025em;
+            --letter-spacing-normal: 0;
+            --letter-spacing-wide: 0.025em;
+            
+            /* 颜色变量 */
+            --text-primary: #333;
+            --text-secondary: #666;
+            --text-muted: #888;
+            --text-accent: var(--primary-blue);
+        }
+        
+        /* 基础字体设置 - 统一所有页面 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+            /* 统一过渡效果 */
+            transition: all 0.3s ease;
+        }
+        
+        html {
+            /* 增强系统字体大小支持 */
+            font-size: clamp(14px, 2vw, 18px);
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #f0f5ff, #e6efff);
+            color: var(--text-primary);
+            font-size: var(--font-size-md);
+            line-height: var(--line-height-relaxed);
+            letter-spacing: var(--letter-spacing-normal);
+            min-height: 100vh;
+        }
+        
+        /* 标题样式 - 增强响应式 */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: var(--line-height-tight);
+            letter-spacing: var(--letter-spacing-tight);
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, var(--font-size-4xl));
+        }
+        
+        h2 {
+            font-size: clamp(1.75rem, 4vw, var(--font-size-3xl));
+        }
+        
+        h3 {
+            font-size: clamp(1.5rem, 3vw, var(--font-size-2xl));
+        }
+        
+        h4 {
+            font-size: clamp(1.25rem, 2.5vw, var(--font-size-xl));
+        }
+        
+        h5 {
+            font-size: clamp(1.125rem, 2vw, var(--font-size-lg));
+        }
+        
+        h6 {
+            font-size: clamp(1rem, 1.5vw, var(--font-size-md));
+        }
+        
+        /* 正文样式 */
+        p {
+            margin-bottom: 1.5rem;
+            line-height: var(--line-height-relaxed);
+            color: var(--text-primary);
+        }
+        
+        /* 辅助文字样式 */
+        .text-sm {
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-normal);
+            color: var(--text-secondary);
+        }
+        
+        .text-xs {
+            font-size: var(--font-size-xs);
+            line-height: var(--line-height-normal);
+            color: var(--text-muted);
+        }
+        
+        /* 链接样式 */
+        a {
+            color: var(--text-accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--dark-blue);
+        }
+        
+        /* 按钮文字样式 */
+        button {
+            font-family: var(--font-family);
+            font-size: var(--font-size-md);
+            font-weight: 500;
+            line-height: var(--line-height-normal);
+        }
+        
+        /* 输入框文字样式 */
+        input, textarea, select {
+            font-family: var(--font-family);
+            font-size: var(--font-size-md);
+            color: var(--text-primary);
+        }
+        
+        /* 顶部导航 */
+        .top-nav {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: white;
+            display: flex;
+            padding: 0 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: var(--header-height);
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 12px;
+            color: #ffd700;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            margin-left: 40px;
+        }
+        
+        .nav-tab {
+            padding: 0 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+            color: white;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .nav-tab:hover, .nav-tab.active {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: white;
+        }
+        
+        .top-right-menu {
+            display: flex;
+            margin-left: auto;
+        }
+        
+        .user-area {
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info {
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            height: 36px;
+        }
+        
+        .user-info:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .user-info i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* 主容器 */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            height: calc(100vh - 110px);
+        }
+        
+        /* 聊天头部 */
+        .chat-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, var(--light-blue), #d0e5ff);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .chat-title {
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-title i {
+            color: var(--primary-blue);
+        }
+        
+        .user-id {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* 消息列表 */
+        .message-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 30px;
+            background: #fafbff;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message.own {
+            align-items: flex-end;
+        }
+        
+        .message-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .message.own .message-info {
+            flex-direction: row-reverse;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .message-time {
+            color: #999;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        
+        .message:not(.own) .message-content {
+            background: var(--message-bg);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message.own .message-content {
+            background: var(--user-message-bg);
+            border-bottom-right-radius: 5px;
+        }
+        
+        /* 消息输入区域 */
+        .message-input-area {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            background: white;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            resize: none;
+            min-height: 80px;
+            max-height: 150px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(30, 107, 184, 0.1);
+        }
+        
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 50px;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(30, 107, 184, 0.3);
+        }
+        
+        .send-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* 滚动条样式 */
+        .message-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .message-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .message-list::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 4px;
+        }
+        
+        .message-list::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-blue);
+        }
+        
+        /* 聊天特定样式 */
+        .chat-title {
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--text-accent);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-id {
+            font-size: var(--font-size-md);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .message-sender {
+            font-weight: 600;
+            color: var(--text-accent);
+        }
+        
+        .message-time {
+            color: var(--text-muted);
+            font-size: var(--font-size-sm);
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 18px;
+            line-height: var(--line-height-relaxed);
+            word-wrap: break-word;
+            color: var(--text-primary);
+        }
+        
+        .message-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: var(--font-size-md);
+            resize: none;
+            min-height: 80px;
+            max-height: 150px;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+        
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: var(--font-size-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 50px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 10px;
+                height: calc(100vh - 90px);
+            }
+            
+            .chat-header {
+                padding: 15px 20px;
+            }
+            
+            .chat-title {
+                font-size: 1.5rem;
+            }
+            
+            .message-list {
+                padding: 15px 20px;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .message-input-area {
+                padding: 15px 20px;
+            }
+            
+            .input-container {
+                gap: 10px;
+            }
+            
+            .send-btn {
+                padding: 12px 20px;
+            }
+        }
+        
+        /* 深色模式支持 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f5f7fa;
+                --text-secondary: #c4c7cc;
+                --text-muted: #a0a4a8;
+            }
+            
+            body {
+                background: linear-gradient(to bottom, #333, #444);
+                color: var(--text-primary);
+            }
+            
+            /* 深色模式下的链接颜色 */
+            a {
+                color: var(--secondary-blue);
+            }
+            
+            a:hover {
+                color: var(--light-blue);
+            }
+            
+            /* 深色模式下的输入框文字 */
+            input, textarea, select {
+                color: var(--text-primary);
+            }
+            
+            /* 深色模式下的聊天组件 */
+            .chat-container {
+                background: #444;
+            }
+            
+            .chat-header {
+                background: linear-gradient(135deg, #333, #444);
+            }
+            
+            .message-list {
+                background: #333;
+            }
+            
+            .message-input-area {
+                background: #444;
+            }
+            
+            .message:not(.own) .message-content {
+                background: #555;
+            }
+            
+            .message.own .message-content {
+                background: var(--dark-blue);
+            }
+            
+            .message-input {
+                background: #555;
+                border-color: #666;
+                color: var(--text-primary);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="top-nav">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <span>建筑工程学院毕业生智能管理系统</span>
+        </div>
+        <div class="nav-tabs">
+            <a href="index.html" class="nav-tab">首页</a>
+        </div>
+        <div class="top-right-menu">
+            <div class="user-area">
+                <div class="user-info">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>反馈</span>
+                </div>
+            </div>
+            <div class="user-area">
+                <div class="user-info" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>退出</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 聊天容器 -->
+    <div class="chat-container">
+        <!-- 聊天头部 -->
+        <div class="chat-header">
+            <div class="chat-title">
+                <i class="fas fa-comments"></i>
+                <span>聊天室</span>
+            </div>
+            <div class="user-id">
+                当前用户ID: <span id="currentUserId">未登录</span>
+            </div>
+        </div>
+        
+        <!-- 消息列表 -->
+        <div class="message-list" id="messageList">
+            <!-- 消息将通过JavaScript动态添加 -->
+        </div>
+        
+        <!-- 消息输入区域 -->
+        <div class="message-input-area">
+            <div class="input-container">
+                <textarea 
+                    class="message-input" 
+                    id="messageInput" 
+                    placeholder="输入消息..."
+                    rows="2"
+                ></textarea>
+                <button class="send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                    发送
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentUser = {
+            id: 'user_' + Math.floor(Math.random() * 1000),
+            name: '用户' + Math.floor(Math.random() * 1000)
+        };
+        
+        // 消息列表
+        let messages = [];
+        
+        // 页面加载完成后初始化
+        window.addEventListener('load', function() {
+            // 设置当前用户ID
+            document.getElementById('currentUserId').textContent = currentUser.id;
+            
+            // 添加键盘事件监听
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // 初始化一些示例消息
+            initSampleMessages();
+            
+            // 显示消息
+            displayMessages();
+        });
+        
+        // 初始化示例消息
+        function initSampleMessages() {
+            messages.push({
+                id: 1,
+                sender: '系统',
+                content: '欢迎来到聊天室！',
+                time: new Date(Date.now() - 3600000).toLocaleTimeString(),
+                own: false
+            });
+            messages.push({
+                id: 2,
+                sender: '用户123',
+                content: '大家好！',
+                time: new Date(Date.now() - 1800000).toLocaleTimeString(),
+                own: false
+            });
+        }
+        
+        // 发送消息
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const content = input.value.trim();
+            
+            if (content === '') {
+                return;
+            }
+            
+            // 创建新消息
+            const newMessage = {
+                id: messages.length + 1,
+                sender: currentUser.id,
+                content: content,
+                time: new Date().toLocaleTimeString(),
+                own: true
+            };
+            
+            // 添加到消息列表
+            messages.push(newMessage);
+            
+            // 清空输入框
+            input.value = '';
+            
+            // 显示消息
+            displayMessages();
+            
+            // 滚动到底部
+            scrollToBottom();
+            
+            // 模拟其他用户回复
+            setTimeout(() => {
+                const replyMessage = {
+                    id: messages.length + 1,
+                    sender: '用户' + Math.floor(Math.random() * 1000),
+                    content: '收到你的消息：' + content,
+                    time: new Date().toLocaleTimeString(),
+                    own: false
+                };
+                messages.push(replyMessage);
+                displayMessages();
+                scrollToBottom();
+            }, 1000 + Math.random() * 2000);
+        }
+        
+        // 显示消息
+        function displayMessages() {
+            const messageList = document.getElementById('messageList');
+            messageList.innerHTML = '';
+            
+            messages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${message.own ? 'own' : ''}`;
+                
+                messageElement.innerHTML = `
+                    <div class="message-info">
+                        <span class="message-sender">${message.sender}</span>
+                        <span class="message-time">${message.time}</span>
+                    </div>
+                    <div class="message-content">${message.content}</div>
+                `;
+                
+                messageList.appendChild(messageElement);
+            });
+        }
+        
+        // 滚动到底部
+        function scrollToBottom() {
+            const messageList = document.getElementById('messageList');
+            messageList.scrollTop = messageList.scrollHeight;
+        }
+        
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
